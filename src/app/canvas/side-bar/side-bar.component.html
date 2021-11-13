@@ -1,0 +1,38 @@
+<section class="side-bar-container">
+  <section class="sub-section">
+    <header><h2>My Design</h2></header>
+    <div class="design-list">
+      <div (click)="createNewCanvas()" class="create-btn tool-box">
+        <div class="tool">
+          <div class="icon-box">
+            <svg [attr.stroke]="'black'" class="icon icon-pen">
+              <use
+                xlink:href="/assets/svg/sprite/symbol-defs.svg#icon-plus1"
+              ></use>
+            </svg>
+          </div>
+        </div>
+        <div>Create New</div>
+      </div>
+      <div
+        (click)="openCanvas(item.$key)"
+        class="design-card"
+        *ngFor="let item of myCanvas$ | async"
+      >
+        <div>{{ item.name }}</div>
+      </div>
+    </div>
+  </section>
+  <section class="sub-section">
+    <header><h2>Shared Design</h2></header>
+    <div class="design-list">
+      <div
+        (click)="openCanvas(item.$key)"
+        class="design-card"
+        *ngFor="let item of sharedCanvas$ | async"
+      >
+        <div>{{ item.name }}</div>
+      </div>
+    </div>
+  </section>
+</section>

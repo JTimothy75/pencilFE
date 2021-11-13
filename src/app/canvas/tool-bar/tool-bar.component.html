@@ -1,0 +1,117 @@
+<div class="toolbar-wrapper">
+  <div class="tool-box">
+    <div
+      (click)="togglePen()"
+      [class.active]="internalCurrentMode === modes.drawing"
+      class="tool"
+    >
+      <div class="icon-box">
+        <svg
+          [attr.fill]="colorFormControl.value"
+          [attr.stroke]="'black'"
+          class="icon-pen"
+        >
+          <use xlink:href="/assets/svg/sprite/symbol-defs.svg#icon-blog3"></use>
+        </svg>
+      </div>
+    </div>
+
+    <div class="tool">
+      <form class="icon-box">
+        <ngx-colors
+          class="color-picker"
+          ngx-colors-trigger
+          [formControl]="colorFormControl"
+        ></ngx-colors>
+      </form>
+    </div>
+
+    <div
+      (click)="togglePan()"
+      [class.active]="internalCurrentMode === modes.PAN"
+      class="tool"
+    >
+      <div class="icon-box">
+        <svg class="icon icon-share2">
+          <use
+            xlink:href="/assets/svg/sprite/symbol-defs.svg#icon-hand-paper-o"
+          ></use>
+        </svg>
+      </div>
+    </div>
+
+    <section
+      #self
+      (dragenter)="cancelDrag($event)"
+      (dragleave)="dragLeave($event, self)"
+      (dragover)="dragOver($event, self)"
+      (drop)="drop($event, self)"
+      class="uploadImage"
+    >
+      <div>
+        <div>Drag and drop image here</div>
+        <input
+          class="image-upload-range"
+          *ngIf="imageUpload$ | async as imageUpload"
+          type="range"
+          min="0"
+          max="100"
+          [value]="imageUpload"
+        />
+      </div>
+      <div>
+        <input
+          hidden="true"
+          type="file"
+          id="fileElem"
+          (change)="fileChangeEvent($event)"
+          accept="image/*"
+        />
+        <label for="fileElem">
+          <div for="fileElem" class="tool">
+            <div class="icon-box icon-box-small">
+              <svg class="icon icon-share2">
+                <use
+                  xlink:href="/assets/svg/sprite/symbol-defs.svg#icon-add_photo_alternate"
+                ></use>
+              </svg>
+            </div></div
+        ></label>
+      </div>
+    </section>
+  </div>
+
+  <div class="share">
+    <form
+      [formGroup]="searchForm"
+      (ngSubmit)="shareCanvas(searchForm.value)"
+      class="share-form"
+    >
+      <input
+        formControlName="share"
+        placeholder="Enter email to share with"
+        class="share-input"
+        type="text"
+        name=""
+        id=""
+      />
+      <button type="submit" class="default-btn">
+        <div
+          (click)="togglePen()"
+          [class.active]="internalCurrentMode === modes.drawing"
+          class="tool"
+        >
+          <div class="icon-box">
+            <svg class="icon icon-share2">
+              <use
+                xlink:href="/assets/svg/sprite/symbol-defs.svg#icon-share1"
+              ></use>
+            </svg>
+          </div>
+        </div>
+      </button>
+    </form>
+
+    <div (click)="logout()" class="small-button">Logout</div>
+  </div>
+</div>
