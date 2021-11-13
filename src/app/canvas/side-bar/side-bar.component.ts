@@ -4,6 +4,7 @@ import firebase from 'firebase/app';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Observable } from 'rxjs';
 import { ICanvas } from 'src/app/shared/canvas.model';
+import { tap } from 'rxjs/Operators';
 
 @Component({
   selector: 'side-bar',
@@ -14,6 +15,8 @@ export class SideBarComponent implements OnInit {
   public user: firebase.User = null;
   public myCanvas$: Observable<ICanvas[]>;
   public sharedCanvas$: Observable<ICanvas[]>;
+  public myDesignIsLoading: boolean = false;
+  public shareDesignIsLoading: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -21,11 +24,38 @@ export class SideBarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.getUserData();
+  }
+
+  public getUserData(): void {
+    this.myDesignIsLoading = true;
+    this.shareDesignIsLoading = true;
     this.authService.user$.subscribe((u) => {
+      this.myDesignIsLoading = false;
+      this.shareDesignIsLoading = false;
       this.user = u;
-      this.myCanvas$ = this.canvasService.getUserCanvas(this.user.email);
-      this.sharedCanvas$ = this.canvasService.getSharedCanvas(this.user.email);
+      this.loadMyDesign();
+      this.loadSharedDesign();
     });
+  }
+
+  public loadMyDesign(): void {
+    this.myDesignIsLoading = true;
+    this.myCanvas$ = this.canvasService.getUserCanvas(this.user.email).pipe(
+      tap(() => {
+        this.myDesignIsLoading = false;
+      })
+    );
+  }
+  public loadSharedDesign(): void {
+    this.shareDesignIsLoading = true;
+    this.sharedCanvas$ = this.canvasService
+      .getSharedCanvas(this.user.email)
+      .pipe(
+        tap(() => {
+          this.shareDesignIsLoading = false;
+        })
+      );
   }
 
   public createNewCanvas(): void {

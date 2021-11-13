@@ -1,1 +1,6 @@
 <canvas id="canvas" class="canvas-display"></canvas>
+<div *ngIf="canvasIsLoading" class="spinner-wrapper">
+  <div class="spinner">
+    <pencil-spinner></pencil-spinner>
+  </div>
+</div>

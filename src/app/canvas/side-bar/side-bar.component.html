@@ -1,8 +1,13 @@
 <section class="side-bar-container">
   <section class="sub-section">
-    <header><h2>My Design</h2></header>
-    <div class="design-list">
-      <div (click)="createNewCanvas()" class="create-btn tool-box">
+    <pencil-spinner *ngIf="myDesignIsLoading"></pencil-spinner>
+    <header *ngIf="!myDesignIsLoading"><h2>My Design</h2></header>
+    <div [hidden]="myDesignIsLoading" class="design-list">
+      <div
+        *ngIf="!myDesignIsLoading"
+        (click)="createNewCanvas()"
+        class="create-btn tool-box"
+      >
         <div class="tool">
           <div class="icon-box">
             <svg [attr.stroke]="'black'" class="icon icon-pen">
@@ -24,8 +29,9 @@
     </div>
   </section>
   <section class="sub-section">
-    <header><h2>Shared Design</h2></header>
-    <div class="design-list">
+    <pencil-spinner *ngIf="shareDesignIsLoading"></pencil-spinner>
+    <header *ngIf="!shareDesignIsLoading"><h2>Shared Design</h2></header>
+    <div [hidden]="shareDesignIsLoading" class="design-list">
       <div
         (click)="openCanvas(item.$key)"
         class="design-card"

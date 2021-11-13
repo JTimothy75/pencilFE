@@ -1,9 +1,11 @@
+@import "../../../assets/style/standard-colors";
+
 .toolbar-wrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 5px;
-  background-color: #d69f7e;
+  background-color: var(--color-secondary);
 }
 
 .drag-over::after {
@@ -13,25 +15,28 @@
   content: "";
   width: 250px;
   height: 60px;
-  border: 2px dashed #2585fe;
+  border: 2px dashed var(--color-primary);
 }
 
 .small-button {
   padding: 10px;
-  color: #ffffff;
-  background-color: #2585fe;
+  color: var(--color-white);
+  background-color: var(--color-primary);
   border-radius: 3px;
+  font-size: 2rem;
 }
 
 .uploadImage {
   position: relative;
   width: 250px;
   height: 50px;
-  border: 2px dashed #e7ecef;
+  border: 2px dashed var(--color-text-light-2);
   border-radius: 10px;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  font-size: 1.8rem;
+  color: var(--color-white);
 }
 
 .tool-box {
@@ -42,14 +47,14 @@
 
 .tool {
   :hover {
-    box-shadow: 0 0 10px 2px rgb(0, 0, 0);
+    box-shadow: 0 0 10px 2px var(--color-black);
   }
 }
 
 .active {
   width: 50px;
   height: 50px;
-  box-shadow: 0 0 10px 5px rgb(0, 0, 0);
+  box-shadow: 0 0 10px 5px var(--color-black);
   border-radius: 5px;
 }
 
@@ -60,7 +65,7 @@
   width: 50px;
   height: 50px;
   border-radius: 5px;
-  border: #e7ecef 2px solid;
+  border: var(--color-text-light-2) 2px solid;
 
   :hover {
     box-shadow: none;
@@ -74,7 +79,7 @@
   .icon {
     width: 40px;
     height: 40px;
-    fill: #e7ecef;
+    fill: var(--color-primary-light);
   }
 
   .color-picker {
@@ -108,10 +113,11 @@
     height: 50px;
     background-color: #fdfdfd33;
     border: none;
-    border-bottom: #e7ecef 2px solid;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    font-size: 20px;
+    border-bottom: var(--color-text-light-2) 2px solid;
+    color: var(--color-white);
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    font-size: 2rem;
     padding: 10px;
 
     &:active,
@@ -124,5 +130,6 @@
   .default-btn {
     background-color: rgba(255, 0, 0, 0);
     border: none;
+    font-size: 1.6rem;
   }
 }

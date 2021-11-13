@@ -48,26 +48,30 @@ export class ToolBarComponent implements OnInit {
     this.canvasService.currentCanvasId$.subscribe(
       (id) => (this.currentCanvasId = id)
     );
+
+    this.canvasService.isDrawingMode$.subscribe((mode: CanvasMode) => {
+      this.internalCurrentMode = mode;
+    });
+
+    this.canvasService.isPaningMode$.subscribe((mode) => {
+      this.internalCurrentMode = mode;
+    });
   }
 
   public togglePan(): void {
     if (this.internalCurrentMode === this.modes.PAN) {
-      this.internalCurrentMode = null;
-      this.canvasService.setIsPaning(this.internalCurrentMode);
+      this.canvasService.setIsPaning(null);
     } else {
-      this.internalCurrentMode = this.modes.PAN;
       this.canvasService.setIsDrawing(null);
-      this.canvasService.setIsPaning(this.internalCurrentMode);
+      this.canvasService.setIsPaning(this.modes.PAN);
     }
   }
   public togglePen(): void {
     if (this.internalCurrentMode === this.modes.drawing) {
-      this.internalCurrentMode = null;
-      this.canvasService.setIsDrawing(this.internalCurrentMode);
+      this.canvasService.setIsDrawing(null);
     } else {
-      this.internalCurrentMode = this.modes.drawing;
       this.canvasService.changePenColor(this.colorFormControl.value);
-      this.canvasService.setIsDrawing(this.internalCurrentMode);
+      this.canvasService.setIsDrawing(this.modes.drawing);
     }
   }
 
@@ -114,6 +118,8 @@ export class ToolBarComponent implements OnInit {
   }
 
   public addImage(file: File): void {
+    this.canvasService.setIsPaning(null);
+    this.canvasService.setIsDrawing(null);
     this.canvasService.uploadImage(file).subscribe();
   }
 

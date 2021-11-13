@@ -1,1 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+@import "./assets/style/standard-colors";
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 50%;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-tertiary);
+  font-weight: 400;
+  line-height: 1.7;
+  box-sizing: border-box;
+  color: var(--color-text-dark);
+}

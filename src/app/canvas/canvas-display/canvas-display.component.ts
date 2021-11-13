@@ -1,6 +1,5 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { fabric } from 'fabric';
-import { Observable } from 'rxjs';
 import { CanvasService } from '../services/canvas.service';
 import { CanvasMode, ICanvas } from 'src/app/shared/canvas.model';
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -13,6 +12,7 @@ import firebase from 'firebase/app';
 })
 export class CanvasDisplayComponent implements OnInit {
   public mouseDown: boolean;
+  public canvasIsLoading: boolean = false;
   public strokeWidth: number;
   public canvasID: string;
   public currentMode: string = null;
@@ -37,7 +37,9 @@ export class CanvasDisplayComponent implements OnInit {
       this.user = u;
       this.initCanvas('canvas');
 
+      this.canvasIsLoading = true;
       this.canvasService.getUserCanvas(this.user.email).subscribe((can) => {
+        this.canvasIsLoading = false;
         can.length > 0 ? this.loadLastCanvas(can) : this.newCanvas();
       });
 
